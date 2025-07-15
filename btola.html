@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل بطولة</title>
+  <style>
+    body {
+      font-family: Arial;
+      background-color: #e0f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      direction: rtl;
+    }
+
+    .form-container {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      width: 350px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0288d1;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #01579b;
+    }
+
+    .extra-field {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>تسجيل البطولة</h2>
+    <form id="regForm">
+      <input name="name" placeholder="الاسم" required>
+      <input name="phone" placeholder="رقم الهاتف" required>
+
+      <select name="tournament" id="tournament" onchange="showExtra(this.value)" required>
+        <option value="">اختر نوع البطولة</option>
+        <option value="pubg">بطولة بابجي</option>
+        <option value="football">بطولة فوتبول</option>
+        <option value="fc">بطولة FC Mobile</option>
+      </select>
+
+      <input name="extra" id="extraField" placeholder="معلومة إضافية" class="extra-field" required>
+
+      <button type="submit">إرسال</button>
+      <p id="msg" style="color: green;"></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('regForm');
+    const extra = document.getElementById('extraField');
+    const msg = document.getElementById('msg');
+
+    function showExtra(val) {
+      if (val === 'pubg') {
+        extra.placeholder = 'ID بابجي';
+        extra.style.display = 'block';
+      } else if (val === 'football') {
+        extra.placeholder = 'يوزر فوتبول';
+        extra.style.display = 'block';
+      } else if (val === 'fc') {
+        extra.placeholder = 'UID في FC Mobile';
+        extra.style.display = 'block';
+      } else {
+        extra.style.display = 'none';
+      }
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      msg.textContent = 'جاري الإرسال...';
+      const url = 'https://script.google.com/macros/s/AKfycbwX_uOUykldIpPQVhBQy0ZTeKPpqxHtthHi_KovRHwkL9RDqX7uTxyMJXBq1ZibNSsS/exec'; // رابط الـ Web App
+      const data = new FormData(form);
+      fetch(url, { method: 'POST', body: data })
+        .then(r => r.json())
+        .then(res => {
+          if (res.result === 'success') {
+            msg.style.color = 'green';
+            msg.textContent = 'تم التسجيل بنجاح ✅';
+            form.reset();
+            extra.style.display = 'none';
+          } else {
+            throw res;
+          }
+        })
+        .catch(err => {
+          msg.style.color = 'red';
+          msg.textContent = 'في مشكلة، حاول تاني';
+        });
+    });
+  </script>
+
+</body>
+</html>
