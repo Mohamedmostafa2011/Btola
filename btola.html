@@ -96,7 +96,7 @@
     form.addEventListener('submit', e => {
       e.preventDefault();
       msg.textContent = 'جاري الإرسال...';
-      const url = 'https://script.google.com/macros/s/AKfycbwX_uOUykldIpPQVhBQy0ZTeKPpqxHtthHi_KovRHwkL9RDqX7uTxyMJXBq1ZibNSsS/exec'; // رابط الـ Web App
+      const url = 'https://script.google.com/macros/s/AKfycbzpsYP1yifGJ_erPbnv0YVARTzpoYqBXNvGSepY6IEdul5uC3I9IGympAt8uDtUBQF9/exec'; // رابط الـ Web App
       const data = new FormData(form);
       fetch(url, { method: 'POST', body: data })
         .then(r => r.json())
