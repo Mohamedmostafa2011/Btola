@@ -62,7 +62,7 @@
       <select name="tournament" id="tournament" onchange="showExtra(this.value)" required>
         <option value="">اختر نوع البطولة</option>
         <option value="pubg">بطولة بابجي</option>
-        <option value="football">بطولة فوتبول</option>
+        <option value="football"> بطولة اي فوتبول (بيس)</option>
         <option value="fc">بطولة FC Mobile</option>
       </select>
 
@@ -82,8 +82,8 @@
       if (val === 'pubg') {
         extra.placeholder = 'ID بابجي';
         extra.style.display = 'block';
-      } else if (val === 'football') {
-        extra.placeholder = 'يوزر فوتبول';
+      } else if (val === 'efootball') {
+        extra.placeholder = 'اسمك في اي فوتبول';
         extra.style.display = 'block';
       } else if (val === 'fc') {
         extra.placeholder = 'UID في FC Mobile';
