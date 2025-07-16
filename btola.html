@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>تسجيل بطولة</title>
+  <title>تسجيل البطولة</title>
   <style>
     body {
       font-family: Arial;
@@ -62,8 +62,8 @@
       <select name="tournament" id="tournament" onchange="showExtra(this.value)" required>
         <option value="">اختر نوع البطولة</option>
         <option value="pubg">بطولة بابجي</option>
-        <option value="football"> بطولة اي فوتبول (بيس)</option>
-        <option value="fc">بطولة FC Mobile</option>
+        <option value="football">بطولة فوتبول</option>
+        <option value="efb">بطولة إي فوتبول (بيس)</option>
       </select>
 
       <input name="extra" id="extraField" placeholder="معلومة إضافية" class="extra-field" required>
@@ -83,10 +83,10 @@
         extra.placeholder = 'ID بابجي';
         extra.style.display = 'block';
       } else if (val === 'football') {
-        extra.placeholder = 'اسمك في اي فوتبول';
+        extra.placeholder = 'يوزر فوتبول';
         extra.style.display = 'block';
-      } else if (val === 'fc') {
-        extra.placeholder = 'UID في FC Mobile';
+      } else if (val === 'efb') {
+        extra.placeholder = 'UID في إي فوتبول (بيس)';
         extra.style.display = 'block';
       } else {
         extra.style.display = 'none';
@@ -96,7 +96,7 @@
     form.addEventListener('submit', e => {
       e.preventDefault();
       msg.textContent = 'جاري الإرسال...';
-      const url = 'https://script.google.com/macros/s/AKfycbzpsYP1yifGJ_erPbnv0YVARTzpoYqBXNvGSepY6IEdul5uC3I9IGympAt8uDtUBQF9/exec'; // رابط الـ Web App
+      const url = 'https://script.google.com/macros/s/AKfycbzpsYP1yifGJ_erPbnv0YVARTzpoYqBXNvGSepY6IEdul5uC3I9IGympAt8uDtUBQF9/exec';
       const data = new FormData(form);
       fetch(url, { method: 'POST', body: data })
         .then(r => r.json())
