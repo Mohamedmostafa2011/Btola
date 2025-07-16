@@ -57,4 +57,65 @@
     <h2>تسجيل البطولة</h2>
     <form id="regForm">
       <input name="name" placeholder="الاسم" required>
-      <input name
+      <input name="phone" placeholder="رقم الهاتف" required>
+
+      <select name="tournament" id="tournament" onchange="showExtra(this.value)" required>
+        <option value="">اختر نوع البطولة</option>
+        <option value="pubg">بطولة بابجي</option>
+        <option value="fc">بطولة FC Mobile</option>
+        <option value="efb">بطولة إي فوتبول (بيس)</option>
+      </select>
+
+      <input name="extra" id="extraField" placeholder="معلومة إضافية" class="extra-field" required>
+
+      <button type="submit">إرسال</button>
+      <p id="msg" style="color: green;"></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('regForm');
+    const extra = document.getElementById('extraField');
+    const msg = document.getElementById('msg');
+
+    function showExtra(val) {
+      if (val === 'pubg') {
+        extra.placeholder = 'ID بابجي';
+        extra.style.display = 'block';
+      } else if (val === 'fc') {
+        extra.placeholder = 'UID في FC Mobile';
+        extra.style.display = 'block';
+      } else if (val === 'efb') {
+        extra.placeholder = 'اسم اللاعب';
+        extra.style.display = 'block';
+      } else {
+        extra.style.display = 'none';
+      }
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      msg.textContent = 'جاري الإرسال...';
+      const url = 'https://script.google.com/macros/s/AKfycbzpsYP1yifGJ_erPbnv0YVARTzpoYqBXNvGSepY6IEdul5uC3I9IGympAt8uDtUBQF9/exec';
+      const data = new FormData(form);
+      fetch(url, { method: 'POST', body: data })
+        .then(r => r.json())
+        .then(res => {
+          if (res.result === 'success') {
+            msg.style.color = 'green';
+            msg.textContent = 'تم التسجيل بنجاح ✅';
+            form.reset();
+            extra.style.display = 'none';
+          } else {
+            throw res;
+          }
+        })
+        .catch(err => {
+          msg.style.color = 'red';
+          msg.textContent = 'في مشكلة، حاول تاني';
+        });
+    });
+  </script>
+
+</body>
+</html>
