@@ -52,14 +52,12 @@
   </style>
 </head>
 <body>
-
-  <div class="form-container">
-    <h2>تسجيل البطولة</h2>
-    <form id="regForm">
-      <input name="name" placeholder="الاسم" required>
-      <input name="phone" placeholder="رقم الهاتف" required>
-
-      <select name="tournament" id="tournament" onchange="showExtra(this.value)" required>
+  <div class="container">
+    <form method="post" action="" name="contact-form">
+      <h4>اختر بطولتك</h4>
+      <input type="text" name="your-name" placeholder="الاسم">
+      <input type="text" name="your-number" placeholder="رقم التليفون">
+   <select name="tournament" id="tournament" onchange="showExtra(this.value)" required>
         <option value="">اختر نوع البطولة</option>
         <option value="pubg">بطولة بابجي</option>
         <option value="fc">بطولة FC Mobile</option>
@@ -70,13 +68,23 @@
 
       <button type="submit">إرسال</button>
       <p id="msg" style="color: green;"></p>
-    </form>
+		</form>
   </div>
 
   <script>
-    const form = document.getElementById('regForm');
-    const extra = document.getElementById('extraField');
-    const msg = document.getElementById('msg');
+    const scriptURL = ''
+
+const form = document.forms['contact-form']
+
+form.addEventListener('submit', e => {
+  
+  e.preventDefault()
+  
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+  .then(response => alert("Thank you! Form is submitted" ))
+  .then(() => { window.location.reload(); })
+  .catch(error => console.error('Error!', error.message))
+})
 
     function showExtra(val) {
       if (val === 'pubg') {
